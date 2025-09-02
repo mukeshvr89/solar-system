@@ -60,7 +60,7 @@ jobs:
     steps:
       - name: checkout workspace
         uses: actions/checkout@v4
-      - name: Node json action ${{ matrix.node-version }}
+      - name: Setup Node json version ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
