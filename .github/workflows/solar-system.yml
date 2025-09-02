@@ -55,7 +55,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         exclude:
           - node-version: 18
-          - os: macos-latest
+            os: macos-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout workspace
@@ -71,5 +71,5 @@ jobs:
       - name: Archive test result
         uses: actions/upload-artifact@v4
         with:
-          name: Mocha-Test-Result
+          name: Mocha-Test-Result${{ matrix.node-version}}-${{matrix.os}}
           path: test-results.xml
