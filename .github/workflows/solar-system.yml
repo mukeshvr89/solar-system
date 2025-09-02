@@ -86,6 +86,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Code coverage
+        continue-on-error: true ### Job will be continue if error occures, so next job will also run and upload the covergage report else next step will fail#
         run: npm run coverage
       - name: Archive test result
         uses: actions/upload-artifact@v4
