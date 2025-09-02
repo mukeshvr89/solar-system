@@ -49,14 +49,21 @@ env:
   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }} 
 jobs:
   unit-testing:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 19, 20]
+        os: [ubuntu-latest, macos-latest]
+        exclude:
+          - node-version: 18
+          - os: macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - name: checkout workspace
         uses: actions/checkout@v4
-      - name: ejson action
+      - name: Node json action ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
         run: npm install
       - name: Unit testing
