@@ -106,8 +106,10 @@ jobs:
           name: Code-Coverage-Result
           path: coverage
           retention-days: 5
-  
+
+          
   docker-login:
+    needs: [unit-testing, code-coverage]
     runs-on: ubuntu-latest
     steps:
       - name: checkout Respository
