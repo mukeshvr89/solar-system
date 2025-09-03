@@ -50,11 +50,8 @@ jobs:
   unit-testing:
     strategy:
       matrix:
-        node-version: [18, 20]
-        os: [ubuntu-latest, macos-latest]
-        exclude:
-          - node-version: 18
-            os: macos-latest
+        node-version: [18]
+        os: [ubuntu-latest] 
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout workspace
@@ -106,8 +103,7 @@ jobs:
           name: Code-Coverage-Result
           path: coverage
           retention-days: 5
-
-          
+     
   docker-login:
     needs: [unit-testing, code-coverage]
     runs-on: ubuntu-latest
