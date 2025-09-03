@@ -89,13 +89,24 @@ jobs:
   
   code-coverage:
     runs-on: ubuntu-latest
+    container: 
+      image: node:18     ## Use this container to run code coverage job##
+    services:
+      mongo-db:
+        image: siddharth67/mongo-db:non-prod
+        options: 
+          --name mongo
+    env:
+      MONGO_URI: 'mongodb://mongo:27017/superData'
+      MONGO_USERNAME: non-prod-user
+      MONGO_PASSWORD: non-prod-password
     steps:
       - name: checkout Respository
         uses: actions/checkout@v4
-      - name: Setup Node json version 
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      # - name: Setup Node json version  ### Commet this out because this is not required. job run on container now. 
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
       - name: Cache npm  dependecy
         uses: actions/cache@v4
         with:
