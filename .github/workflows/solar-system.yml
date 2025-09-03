@@ -134,4 +134,21 @@ jobs:
              export IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' solar-system-app)
              echo "Container IP: $IP"
              echo "Testing Image URI using wget..."
-             wget -q -O - http://$IP:3000/live | grep live
+             for i in {1..10}; do
+             if wget -q -O - http://$IP:3000/live | grep live; then
+             echo "Service is live!"
+             exit 0
+             else
+             echo "Attempt $i: Service not ready yet..."
+             sleep 3
+             fi
+             done
+             echo "Service did not respond in time"
+             exit 1
+
+            #  export IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' solar-system-app)
+            #  echo "Container IP: $IP"
+            #  echo "Testing Image URI using wget..."
+            #  wget -q -O - http://$IP:3000/live | grep live
+
+            
